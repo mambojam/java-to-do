@@ -1,25 +1,52 @@
-import java.util.Scanner;
-
+import java.util.ArrayList;
 
 public class TodoList {
-    public static void main(String args[]) {
-        // Create a new scanner object
-        Scanner inScan = new Scanner(System.in);
-        // Print out and ask user for a todo item
-        System.out.print("Please enter a new todo: ");
-        // Save the user input - todo description
-        String todoDescription = inScan.nextLine();
+    // Variables
+    String Username;
+    ArrayList<TodoItem> Todos = new ArrayList<TodoItem>();
 
-        // Print out and ask user for a due date
-        System.out.print("When is this due? ");
-        // Save the user input - todo due date
-        String todoDueDate = inScan.nextLine();
-        
-        TodoItem item1 = new TodoItem(todoDescription, todoDueDate);
-        System.out.println(item1.getTodo() + " by " + item1.getDueDate());
-   
-        // Close scanner
-        inScan.close();
+    // Constructor
+    public TodoList(String Username) {
+        this.Username = Username;
+        ArrayList<TodoItem> Todos = new ArrayList<TodoItem>();
+    }
+
+    public TodoList(String Username, ArrayList<TodoItem> Todos) {
+        this.Username = Username;
+        this.Todos = Todos;
+    }
+
+    // Methods
+    // To String
+    public String toString() {
+        String s = "";
+        for ( TodoItem Todo : Todos ) {
+            s += Todo.toString();
+        }
+        return s;
+    }
+    // Get todo
+    public void getTodo(int i) {
+        TodoItem todo = Todos.get(i);
+        System.out.println(todo);
+    }
+
+    // Get all todos
+    public void getTodos() {
+        for ( TodoItem todo : Todos ) {
+            System.out.println(todo);
+        }
+     }
+    // Add todo
+    public void addTodo( TodoItem todo ) {
+        Todos.add(todo);
+    }
+
+    public void addTodo(String todoDescription, String dueDate ) {
+        TodoItem todo = new TodoItem(todoDescription, dueDate);
+        Todos.add(todo);
+    }
+    // Complete todo
+    // Edit todo
 
     }
-}

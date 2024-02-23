@@ -19,6 +19,10 @@ public class TodoItem {
     }
 
     // Methods
+    // Override toString()
+    public String toString() {
+        return description + " due " + dueDate;
+    }
 
     // For loading todos into list
     public String getTodo() {
