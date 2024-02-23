@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,12 +41,12 @@ public class TodoApp2 {
             if (answer.equals("LOGIN")) {
                 return null; 
             } else {
-                inScan.close();
                 return new TodoList(username); // Return new TodoList for new User
             }
                 
         }
     }
+
     public static void main(String[] args) {
 
         // Create a new scanner object
@@ -70,6 +73,8 @@ public class TodoApp2 {
         
         System.out.println("Welcome " + username + ". What would you like to do?");
         Boolean running = true;
+        String filename = username + "_todos.txt";
+
         while ( running ) {
             System.out.println("Please select: 'ADD', 'VIEW', 'EDIT', 'COMPLETE', 'EXIT'");
             String input = inScan.nextLine();
@@ -83,10 +88,19 @@ public class TodoApp2 {
                     String todoDueDate = inScan.nextLine(); // Save the user input - todo due date
                     
                     Todos.addTodo(todoDescription, todoDueDate);
+                    Todos.writeTodos(filename);
                     break;
                 
                 case "VIEW" :
                     Todos.getTodos();
+                    break;
+
+                case "COMPLETE" : // Need to add exception handling for other data input types
+                    System.out.println("Please enter the number todo you have completed:");
+                    Todos.getTodos();
+                    int todoToComplete = inScan.nextInt();
+                    Todos.completeTodo(todoToComplete);
+                    Todos.writeTodos(filename);
                     break;
 
                 case "EXIT" :
@@ -95,36 +109,5 @@ public class TodoApp2 {
             }
 
         }
-        
-
-        
-    
-        
-        // String answer;
-        // while (true) {
-        //     // What does the user want to do
-        //     System.out.print("What next? ");
-        //     // Save the user input - todo due date
-        //     answer = inScan.nextLine();
-            
-        //     switch ( answer ) {
-        //         case "Add":
-        //             // Print out and ask user for a todo item
-        //             System.out.print("Please enter a new todo: ");
-        //             // Save the user input - todo description
-        //             todoDescription = inScan.nextLine();
-
-        //             // Print out and ask user for a due date
-        //             System.out.print("When is this due? ");
-        //             // Save the user input - todo due date
-        //             todoDueDate = inScan.nextLine();
-
-        //             TodoList.addTodo(todoDescription, todoDueDate);
-        //         case "View": 
-        //             TodoList.getTodos();
-        //         case "Finish": 
-        //             break;
-        //     }
-        // }        
     }
 }
