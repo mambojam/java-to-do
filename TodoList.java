@@ -3,72 +3,76 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-public class TodoList {
+public class TodoList extends ArrayList<TodoItem> {
     // Variables
-    String Username;
-    ArrayList<TodoItem> Todos = new ArrayList<TodoItem>();
+    private String username;
 
     // Constructor
-    public TodoList(String Username) {
-        this.Username = Username;
-        ArrayList<TodoItem> Todos = new ArrayList<TodoItem>();
+    public TodoList(String username) {
+        super();
+        this.username = username;
     }
 
-    public TodoList(String Username, ArrayList<TodoItem> Todos) {
-        this.Username = Username;
-        this.Todos = Todos;
-    }
 
     // Methods
     // To String
     public String toString() {
         String s = "";
-        for ( TodoItem Todo : Todos ) {
+        for ( TodoItem Todo : this ) {
             s += Todo.toString();
         }
         return s;
     }
     // Write todos to file NAME
-    public void writeTodos(String filename) {
+    public void writeTodos( String filename ) {
         File outFile = new File ( filename );
         try {
             FileWriter writer = new FileWriter( outFile );
-            BufferedWriter out = new BufferedWriter(writer);
+            BufferedWriter out = new BufferedWriter( writer );
 
-            for ( TodoItem todo : Todos ) {
+            for ( TodoItem todo : this ) {
                 out.write(todo.getTodo() + "," + todo.getDueDate() + "\n");
             }
 
             out.close();
             
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
     }
+
+    // Get Username
+    public String getUsername(){
+        return username;
+    }
     // Get todo
-    public void getTodo(int i) {
-        TodoItem todo = Todos.get(i);
-        System.out.println(todo);
+    public TodoItem getTodo(int i) {
+        TodoItem todo = this.get(i);
+        return todo;
     }
 
      public void getTodos() {
-        for ( int i = 0 ; i < Todos.size() ; i++ ) {
-            System.out.println((i+1) + ": " + Todos.get(i).toString() );
+        for ( int i = 0 ; i < this.size() ; i++ ) {
+            System.out.println((i+1) + ": " + this.get(i).toString() );
         }
      }
     // Add todo
     public void addTodo( TodoItem todo ) {
-        Todos.add(todo);
+        this.add(todo);
     }
 
-    public void addTodo(String todoDescription, String dueDate ) {
-        TodoItem todo = new TodoItem(todoDescription, dueDate);
-        Todos.add(todo);
+    public void addTodo( String todoDescription, String dueDate ) {
+        TodoItem todo = new TodoItem( todoDescription, dueDate );
+        this.add(todo);
     }
     // Complete todo
-    public void completeTodo(int i) {
-        Todos.remove(i-1);
+    public void completeTodo(int index) {
+        this.remove(index);
     }
     // Edit todo
+    public TodoItem editTodo(int index, TodoItem editedTodo) {
+        TodoItem newTodo = this.set(index, editedTodo);
+        return newTodo;
+    }
 
     }

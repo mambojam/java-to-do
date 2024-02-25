@@ -1,3 +1,3 @@
-Watch latest recording on OOO,Saturday
-Double Check I haven't missed any content on Learning Central,Sat/Sun
-Add case insesivity to Todo App,Not urgent
+Add ta-da functionality!,EXIT
+Fix double menu print on complete,Today
+add case insensitivity to login/signup section,Tomorrow
